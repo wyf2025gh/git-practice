@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>吴衍丰 · 计算机网络技术</title>
+<style>
+  :root {
+    --bg: #f7f7f5;
+    --card: #ffffff;
+    --ink: #14161a;
+    --ink-soft: #5a6068;
+    --ink-faint: #9aa1a9;
+    --line: #e6e5e1;
+    --accent: #2f6f5e;
+    --accent-soft: #eaf2ef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+                 "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 20px;
+  }
+
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 88px 0 72px;
+  }
+
+  /* ---------- 头部 ---------- */
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    letter-spacing: .08em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 5px 13px;
+    border-radius: 100px;
+    margin-bottom: 28px;
+  }
+  .kicker::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  h1 {
+    font-size: clamp(38px, 8vw, 56px);
+    font-weight: 650;
+    letter-spacing: -.02em;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+
+  .lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 30em;
+  }
+
+  /* ---------- 分隔 ---------- */
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 56px 0;
+  }
+
+  /* ---------- 区块标题 ---------- */
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 22px;
+  }
+
+  /* ---------- 信息条 ---------- */
+  .facts {
+    display: grid;
+    gap: 0;
+  }
+  .fact {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .fact:first-child { border-top: 1px solid var(--line); }
+  .fact dt {
+    color: var(--ink-faint);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .fact dd {
+    font-size: 15px;
+    text-align: right;
+    font-weight: 500;
+  }
+
+  /* ---------- 学习清单 ---------- */
+  .list {
+    display: grid;
+    gap: 12px;
+  }
+  .item {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    transition: border-color .2s ease, transform .2s ease;
+  }
+  .item:hover {
+    border-color: #d3d2cc;
+    transform: translateY(-1px);
+  }
+  .dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-top: 10px;
+    flex-shrink: 0;
+  }
+  .dot.idle { background: #d5d4ce; }
+  .item h3 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 3px;
+  }
+  .item p {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    line-height: 1.65;
+  }
+
+  /* ---------- 链接 ---------- */
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    border: 1px solid var(--line);
+    background: var(--card);
+    padding: 10px 18px;
+    border-radius: 100px;
+    transition: all .2s ease;
+  }
+  .btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .btn svg { width: 15px; height: 15px; }
+
+  /* ---------- 页脚 ---------- */
+  footer {
+    margin-top: 72px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    font-size: 13px;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  /* ---------- 入场动画 ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise .7s cubic-bezier(.22,.61,.36,1) forwards;
+  }
+  @keyframes rise {
+    to { opacity: 1; transform: none; }
+  }
+  .d1 { animation-delay: .05s; }
+  .d2 { animation-delay: .15s; }
+  .d3 { animation-delay: .25s; }
+  .d4 { animation-delay: .35s; }
+  .d5 { animation-delay: .45s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 520px) {
+    .wrap { padding: 56px 0 48px; }
+    .fact { flex-direction: column; gap: 2px; }
+    .fact dd { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="reveal d1">
+    <span class="kicker">在读 · 计算机网络技术</span>
+  </div>
+
+  <h1 class="reveal d2">吴衍丰</h1>
+
+  <p class="lede reveal d2">
+    在学计算机网络。会敲一点命令，正在把学到的东西一个个搭起来，
+    然后放到这里。
+  </p>
+
+  <hr class="reveal d3">
+
+  <section class="reveal d3">
+    <h2>基本信息</h2>
+    <dl class="facts">
+      <div class="fact">
+        <dt>学校</dt>
+        <dd>海南健康管理职业技术学院</dd>
+      </div>
+      <div class="fact">
+        <dt>专业</dt>
+        <dd>计算机网络技术</dd>
+      </div>
+      <div class="fact">
+        <dt>年级</dt>
+        <dd>2025 级</dd>
+      </div>
+      <div class="fact">
+        <dt>所在地</dt>
+        <dd>海南</dd>
+      </div>
+    </dl>
+  </section>
+
+  <hr class="reveal d3">
+
+  <section class="reveal d4">
+    <h2>正在学</h2>
+    <div class="list">
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>Git 与版本管理</h3>
+          <p>理解提交、分支和远端仓库，能独立完成改动、存档、推送的完整流程。</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot"></span>
+        <div>
+          <h3>计算机网络基础</h3>
+          <p>TCP/IP 分层、IP 地址与子网、DNS 解析过程。</p>
+        </div>
+      </div>
+      <div class="item">
+        <span class="dot idle"></span>
+        <div>
+          <h3>Linux 命令行</h3>
+          <p>文件操作、权限、进程管理，下一步要练的内容。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="reveal d4">
+
+  <section class="reveal d5">
+    <h2>找到我</h2>
+    <div class="links">
+      <a class="btn" href="https://github.com/wyf2025gh" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+                   0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+                   -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+                   .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+                   -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+                   .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+                   .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+                   0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+        </svg>
+        GitHub
+      </a>
+      <a class="btn" href="https://github.com/wyf2025gh/git-practice" target="_blank" rel="noopener">
+        这个仓库
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <span>吴衍丰 · 海南</span>
+    <span>用 GitHub Pages 托管</span>
+  </footer>
+
+</div>
+</body>
+</html>
